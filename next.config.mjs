@@ -1,11 +1,11 @@
-import { withContentlayer } from "next-contentlayer";
-
-/** @type {import('next').NextConfig} */
 const nextConfig = {
-	pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
-	experimental: {
-		mdxRs: true,
-	},
+  reactStrictMode: process.env.NODE_ENV === "development", // Disable strict mode in production
+  webpack(config, { isServer }) {
+    if (process.env.NODE_ENV === "production") {
+      config.ignoreWarnings = [/failed to load/]; // Customize ignored warnings
+    }
+    return config;
+  },
 };
 
-export default withContentlayer(nextConfig);
+export default nextConfig;
